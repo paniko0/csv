@@ -92,4 +92,9 @@ class TestCSV::Writing < TestCSV
                   CSV.generate_line( [1, "b", nil, %Q{already "quoted"}],
                                      force_quotes: true ) )
   end
+
+  def test_conditions
+    assert_equal( "=a,=b,=c,=d\n", CSV.generate_line( ["a", "b", "c", "d"],
+                                                   converters: lambda { |field| field.prepend '=' } ) )
+  end
 end
